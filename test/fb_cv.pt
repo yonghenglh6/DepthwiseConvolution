@@ -1,0 +1,88 @@
+input: "data"
+input_shape {
+  dim: 16
+  dim: 256
+  dim: 27
+  dim: 27
+}
+
+input: "label"
+input_shape{
+  dim: 16
+  dim: 1
+  dim: 1
+  dim: 1
+}
+
+layer {
+	name: "preconv"
+	type: "Convolution"
+	bottom: "data"
+	top: "preconv"
+	param {
+		lr_mult: 1
+		decay_mult: 1
+	}
+	convolution_param {
+		num_output: 256
+		kernel_size: 1
+		stride: 1
+		weight_filler {
+			type: "msra"
+		}
+		bias_term: false
+	}
+}
+
+layer {
+	name: "depthwise_conv12/3x3"
+	type: "Convolution"
+	bottom: "preconv"
+	top: "conv12/3x3"
+	param {
+		lr_mult: 1
+		decay_mult: 1
+	}
+	convolution_param {
+		num_output: 256
+		group: 256
+		pad: 1
+		kernel_size: 3
+		stride: 1
+		weight_filler {
+			type: "msra"
+		}
+		bias_term: false
+	}
+}
+
+layer {
+	name: "fc1"
+	type: "InnerProduct"
+	bottom: "conv12/3x3"
+	top: "fc1"
+	param {
+		lr_mult: 1
+		decay_mult: 1
+	}
+	inner_product_param {
+		num_output: 2
+		weight_filler {
+			type: "msra"
+		}
+		bias_term: false 
+	}
+}
+layer{
+	name: "softmax"
+	type: "Softmax"
+	bottom: "fc1"
+	top: "prob"
+}
+layer{
+	name: "loss"
+	type: "SoftmaxWithLoss"
+	bottom: "fc1"
+	bottom: "label"
+	loss_weight: 1 
+}
