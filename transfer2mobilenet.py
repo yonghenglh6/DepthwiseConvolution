@@ -55,6 +55,7 @@ def add_mobilenet_block(net, originlayer, input_channel, args):
     convx_layer = net.layer.add()
     convx_layer.CopyFrom(originlayer)
     convx_layer.name = baselayername + "_depthwise"
+    convx_layer.type = "DepthwiseConvolution"
     clearedblobs(convx_layer.top).append(baselayername + "_3x3")
     convx_layer.convolution_param.group = input_channel
     convx_layer.convolution_param.num_output = input_channel
