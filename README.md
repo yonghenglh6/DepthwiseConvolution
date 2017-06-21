@@ -16,4 +16,19 @@ Please refer to the example/Withdw_MN_train_128_1_train.prototxt, which is alter
 - [MobileNet-Caffe](https://github.com/shicai/MobileNet-Caffe)
 
 
+### GPUPerformance on example net
+
+| GPUPerformance      | Origin[^nocudnn]   | Mine      |
+| ------------------- |:------------------:| ---------:|
+| forward_batch1      |        40 ms       |    3 ms   |
+| backward_batch1     |        87 ms       |    8 ms   |
+| forward_batch16     |       512 ms       |   13 ms   |
+| backward_batch16    |      1155 ms       |   68 ms   |
+
+
+[^nocudnn]: When turn on cudnn, the memory consuming of mobilenet would increase to unbelievable level. You may try.
+
+
+### Transfer normal net to mobilenet
+I write a script[transfer2mobilenet.py] to convert normal net to mobilenet format. You may try too.
 
