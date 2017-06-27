@@ -55,7 +55,8 @@ def add_mobilenet_block(net, originlayer, input_channel, args):
     convx_layer = net.layer.add()
     convx_layer.CopyFrom(originlayer)
     convx_layer.name = baselayername + "_depthwise"
-    convx_layer.type = "DepthwiseConvolution"
+    if not args.origin_type:
+        convx_layer.type = "DepthwiseConvolution"
     clearedblobs(convx_layer.top).append(baselayername + "_3x3")
     convx_layer.convolution_param.group = input_channel
     convx_layer.convolution_param.num_output = input_channel
@@ -143,6 +144,7 @@ if __name__ == '__main__':
     parser.add_argument('--midbn', type=str, default='nobn')
     parser.add_argument('--weight_filler', type=str, default='origin')
     parser.add_argument('--activation', type=str, default='ReLU')
+    parser.add_argument('--origin_type', action='store_true')
     args = parser.parse_args()
 
     net = caffe_pb2.NetParameter()
