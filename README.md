@@ -7,9 +7,13 @@ This is a personal caffe implementation of mobile convolution layer. For details
 
 ### How to build
 1. Merge the caffe folder in the repo with your own caffe.
+    ```
     $ cp -r $REPO/caffe/* $YOURCAFFE/
+    ```
 2. Then make. 
+    ```
     $ cd $YOURCAFFE && make
+    ```
 
 ### Usage
 Replacing the type of mobile convolution layer with "DepthwiseConvolution" is all.
