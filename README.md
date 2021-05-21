@@ -35,8 +35,9 @@ Please refer to the example/Withdw_MN_train_128_1_train.prototxt, which is alter
 
 
 ### Transfer normal net to mobilenet
-
-    I write a script [transfer2Mobilenet.py] to convert normal net to mobilenet format. You may try too.
-    usage: python ./transfer2Mobilenet.py sourceprototxt targetprototxt [--midbn nobn --weight_filler msra --activation ReLU]    ["--origin_type" means the depthwise convolution layer's type will be "Convolution" instead of "DepthwiseConvolution"]
-
-    The "transferTypeToDepthwiseConvolution.py" will be used for changing the depthwise convolution layer's type from "Convolution" to "DepthwiseConvolution".
+I write a script [transfer2Mobilenet.py] to convert normal net to mobilenet format. You may try too.
+Usage: 
+```
+python ./transfer2Mobilenet.py sourceprototxt targetprototxt [--midbn nobn --weight_filler msra --activation ReLU]    ["--origin_type" means the depthwise convolution layer's type will be "Convolution" instead of "DepthwiseConvolution"]
+```
+The "transferTypeToDepthwiseConvolution.py" will be used for changing the depthwise convolution layer's type from "Convolution" to "DepthwiseConvolution".
